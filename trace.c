@@ -23,7 +23,6 @@ __cyg_profile_func_enter (void *func, void *caller) {
 	struct timeval time;
 	gettimeofday( &time, NULL);
 	if(fp_trace != NULL) {
-		//fprintf(fp_trace, "e %p %p %lu\n", func, caller, time(NULL) );
 		fprintf(fp_trace, "e %p %p %lu %lu\n", func, caller, time.tv_sec, time.tv_usec );
 	}
 }
