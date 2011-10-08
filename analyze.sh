@@ -34,7 +34,7 @@ while read LINETYPE FADDR CADDR CTIME CSEC; do
 	
 		if test ${CTIME} = ${RUN_T[$FNAME]} 			# pokud jsou timestampy ve stejne sekunde, jen odecteme
 		then
-			echo ${FNAME}\(\) runtime = 0.$(((${CSEC})-(${RUN_S[$FNAME]}))) second
+			printf "%s() runtime = 0.%06d second\n" ${FNAME} $(((${CSEC})-(${RUN_S[$FNAME]})))
 		fi
 
 		if test ${CTIME} -gt $(((${RUN_T[$FNAME]})+(1))) 	# provede se, pokud se timestampy lisi v sekundach
