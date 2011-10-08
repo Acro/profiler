@@ -21,3 +21,11 @@ Run program with:
 Output is located at:
 
 	trace.out
+
+Analyzing data:
+
+	To analyze output file you can use following command:
+
+		. analyze.sh
+
+	This will print runtime of each function onto stdout.
