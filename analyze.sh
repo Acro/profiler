@@ -46,16 +46,16 @@ while read LINETYPE FADDR CADDR CTIME CSEC; do
 				TOTAL_MSEC=$((($TOTAL_MSEC)-(1000000)))
 				TOTAL_SEC=$((($TOTAL_SEC)+(1)))
 			fi
-			echo ${FNAME}\(\) runtime = $TOTAL_SEC.$TOTAL_MSEC seconds
+			printf "%s() runtime = %d.%06d seconds\n" ${FNAME} $TOTAL_SEC $TOTAL_MSEC
 		elif test ${CTIME} -gt ${RUN_T[$FNAME]}			# provede se, pokud se timestampy lisi jen o 1 sekundu
 		then
 			SEC_PASSED=$((($CSEC)+(1000000)-(${RUN_S[$FNAME]})))
 
 			if test 1000000 -gt $SEC_PASSED
 			then
-				echo ${FNAME}\(\) runtime = 0.$SEC_PASSED second
+				printf "%s() runtime = 0.%06d second\n" ${FNAME} $SEC_PASSED
 			else
-				echo ${FNAME}\(\) runtime = 1.$((($SEC_PASSED)-(1000000))) second
+				printf "%s() runtime = 1.%06d second\n" ${FNAME} $((($SEC_PASSED)-(1000000)))
 			fi
 		fi
 
