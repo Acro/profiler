@@ -4,7 +4,8 @@
 
 int main() {
 	int i = 0, j = 1;
-	for(; i < 100000000; i++) {
+	for(; i < 3; i++) {
 		j += i;
+		sleep(1);
 	}
 }
