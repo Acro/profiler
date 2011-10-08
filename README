@@ -4,9 +4,15 @@ Profiler project for PV173 ~ Grid computing group
 
 How to compile demo.c example:
 
-	gcc -finstrument-functions -g -c -o demo.o demo.c
-	gcc -c -o trace.o trace.c
-	gcc demo.o trace.o -o main
+	You can now compile with:
+
+		. run.sh
+
+	Or you can use:
+
+		gcc -finstrument-functions -g -c -o demo.o demo.c
+		gcc -c -o trace.o trace.c
+		gcc demo.o trace.o -o main
 
 Run program with:
 
