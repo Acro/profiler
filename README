@@ -26,6 +26,8 @@ Analyzing data:
 
 	To analyze output file you can use following command:
 
-		. analyze.sh
+		. analyze.sh [ file ] [ file ]
 
 	This will print runtime of each function onto stdout.
+        The first parameter is executable file we are trying to analyze.
+        The second parameter is output of profiler.
