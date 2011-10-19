@@ -1,11 +1,13 @@
 /*
- ============================================================================
+ 
+============================================================================
  Name        : evaluate.c
- Author      : 
+ Author      :
  Version     :
  Copyright   : Your copyright notice
  Description : Hello World in C, Ansi-style
- ============================================================================
+ 
+============================================================================
  */
 
 #include <stdio.h>
@@ -25,8 +27,10 @@ struct data_stack{
 
 };
 struct data_stack* put(struct data_stack *stack, struct data_stack *new){
+    if (new == NULL) return stack;
 	if(stack==NULL){
 		stack=new;
+		stack->next = NULL;
 	}
 	else{
 		struct data_stack *pos=stack;
@@ -34,6 +38,7 @@ struct data_stack* put(struct data_stack *stack, struct data_stack *new){
 			pos=pos->next;
 		}
 		pos->next=new;
+		new->next=NULL;
 	}
 	return stack;
 }
@@ -69,7 +74,7 @@ struct data_stack* get(struct data_stack *stack){
 void printStack(struct data_stack *stack){
 	struct data_stack *toDel;
 	while(stack!=NULL){
-		printf("Function %s sec %d usec %d\n", stack->function,(stack->endSec-stack->beginSec),(stack->endUSec-stack->beginUSec));
+		printf("Function %s %ds %dms\n", stack->function,(stack->endSec-stack->beginSec),(stack->endUSec-stack->beginUSec));
 		toDel=stack;
 		stack=stack->next;
 		free(toDel);
@@ -114,3 +119,4 @@ int main(void) {
 	fclose(fp_trace);
 	return EXIT_SUCCESS;
 }
+
