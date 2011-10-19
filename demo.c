@@ -2,13 +2,19 @@
 #include <unistd.h>
 #include <math.h>
 
-void function(int n)
+void recursF(int n)
 {
-	//if (n==0) return;
+	if (n==0) return;
 	
 	printf("test");
-	//function(n-1);
+	recursF(n-1);
 }
+void testFunc()
+{
+  printf("Yes");
+  sleep(1);
+}
+
 
 int main() {
 	int i = 0, j = 1;
@@ -16,7 +22,7 @@ int main() {
 		j += i;
 		sleep(1);
 	}
-	function(1);
-	function(2);
-	function(3);
+	testFunc(1);
+	recursF(2);
+	recursF(3);
 }

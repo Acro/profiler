@@ -98,14 +98,30 @@ void functionExited(struct data_stack *stack, struct data_stack *new)
 
 
 void printStack(struct data_stack *stack){
+    FILE *fp;
+    char functionName[250];
+
 	struct data_stack *toDel;
 	while(stack!=NULL)
 	{
-		printf("Function %s %fs\n", stack->name, stack->totalSec);
+	    char cmd[250];
+	    strcpy(cmd, "addr2line -f -e ");
+	    strcat(cmd, "main");
+	    strcat(cmd, " ");
+	    strcat(cmd, stack->name);
+	    strcat(cmd," | head -1");
+	    fp = popen( cmd , "r");
+
+	    fgets(functionName, sizeof(functionName)-1, fp);
+
+		printf("Function %s %fs\n", functionName, 
+stack->totalSec);
 		toDel=stack;
 		stack=stack->next;
 		free(toDel);
 	}
+
+    pclose(fp);
 }
 
 int main(void) {
@@ -123,7 +139,7 @@ int main(void) {
 		int usec;
 		char type;
 
-		sscanf(line,"%c %*s %s %d %d", &type, name, &sec, &usec);
+		sscanf(line,"%c %s %*s %d %d", &type, name, &sec, &usec);
 		struct data_stack *data;
 
 		data=malloc(sizeof(struct data_stack));
