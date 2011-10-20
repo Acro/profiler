@@ -20,6 +20,7 @@ struct data_stack{
 		char name[200];
 		double beginSec;
 		double totalSec;
+		double callingTime;
 		int recursion;
 		struct data_stack* next;
 };
@@ -36,6 +37,7 @@ data_stack *new)
 		stack->next = NULL;
 		stack->recursion = 1;
 		stack->totalSec = 0;
+		stack->callingTime = 0;
 	}
 	else
 	{
@@ -70,6 +72,7 @@ data_stack *new)
 		new->next = NULL;
 		new->totalSec = 0;
 		new->recursion = 1;
+		new->callingTime = 0;
 	}
 	return stack;
 }
@@ -77,22 +80,31 @@ data_stack *new)
 void functionExited(struct data_stack *stack, struct data_stack *new)
 {
     struct data_stack *pos = stack;
-
+	double time = 0;
 	while(pos != NULL)
 	{
 	    if (strcmp(pos->name, new->name) == 0)
 	    {
-            if (pos->recursion > 1) pos->recursion -= 1;
-            else
-            {
-                pos->totalSec += new->beginSec - pos->beginSec;
+	        if (pos->recursion > 1) pos->recursion -= 1;
+		else
+		{
+		time = new->beginSec - pos->beginSec;
+		pos->totalSec += time;
                 pos->recursion = 0;
             }
-            free(new);
-            return;
-        }
+	        }
         pos = pos->next;
     }
+	
+	pos = stack;
+	while (pos != NULL)
+	{
+		if (pos->recursion > 0 && strcmp(pos->name,new->name)!=0)
+		pos->callingTime += time;
+		pos = pos->next;
+	}
+	
+
     free(new);
 }
 
@@ -114,8 +126,8 @@ void printStack(struct data_stack *stack){
 
 	    fgets(functionName, sizeof(functionName)-1, fp);
 
-		printf("Function %s %fs\n", functionName, 
-stack->totalSec);
+		printf("Function %s %fs incl., %fs clear\n", functionName, 
+stack->totalSec, stack->totalSec - stack->callingTime);
 		toDel=stack;
 		stack=stack->next;
 		free(toDel);
