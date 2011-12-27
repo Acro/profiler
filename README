@@ -1,33 +1,34 @@
-Profiler project for PV173 ~ Grid computing group
+Profiler project for PV173
 
 ---
 
 How to compile demo.c example:
 
-	You can now compile with:
+	Compiling for full-tracing can be done with:
 
 		. run.sh
 
-	Or you can use:
+	If you want to trace specific function, use:
 
-		gcc -finstrument-functions -g -c -o demo.o demo.c
-		gcc -c -o trace.o trace.c
-		gcc demo.o trace.o -o main
+		. run.sh functionName
 
-Run program with:
+To run program that will generate output file (out.txt) use:
 
 	./main
 
-Output is located at:
+Tracing output is located at:
 
-	trace.out
+	out.txt
 
 Analyzing data:
+	
+	First of all, you need to compile evaluate.c using:
+		
+		gcc -o evaluate evaluate.c
 
 	To analyze output file you can use following command:
 
-		. analyze.sh [ file ] [ file ]
+		./evaluate out.txt
 
 	This will print runtime of each function onto stdout.
-        The first parameter is executable file we are trying to analyze.
-        The second parameter is output of profiler.
+        The first parameter is executable file you want to analyze.
