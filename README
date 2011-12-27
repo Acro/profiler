@@ -31,4 +31,4 @@ Analyzing data:
 		./evaluate out.txt
 
 	This will print runtime of each function onto stdout.
-        The first parameter is executable file you want to analyze.
+        The first parameter is the output file you want to analyze.
