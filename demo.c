@@ -15,7 +15,6 @@ void testFunc()
   sleep(1);
 }
 
-
 int main() {
 	int i = 0, j = 1;
 	for(; i < 3; i++) {
@@ -24,5 +23,5 @@ int main() {
 	}
 	testFunc(1);
 	recursF(2);
-	recursF(3);
+	recursF(10000);
 }
