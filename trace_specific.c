@@ -38,7 +38,7 @@ void addr2name(char* name) {
 void 
 __attribute__ ((constructor))
 trace_begin (void) {
-	FILE* f = fopen("func.txt", "r"); // reads file created during compilation, if emtpy, no specific tracing should be done
+	FILE* f = fopen("func.txt", "r");
 	if(f != NULL) {
 		fgets(target_function, 255, f);
 		target_function[strlen(target_function)-1] = '\0';
@@ -68,8 +68,6 @@ trace_end (void) {
 
 void
 __cyg_profile_func_enter (void *func, void *caller) {
-	// gettimeofday( &current_time, NULL);
-
 	if(profiled_func == NULL) {
 		sprintf(buffer, "%p", func);
 		addr2name(buffer);
@@ -117,12 +115,7 @@ __cyg_profile_func_exit (void *func, void *caller) {
 		out->state = 1;
 		out->next = NULL;
 
-		if(start == NULL) {
-			start = out;
-			last = out;
-		} else {
-			last->next = out;
-			last = out;
-		}
+		last->next = out;
+		last = out;
 	}
 }

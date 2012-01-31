@@ -29,13 +29,16 @@ void
 __attribute__ ((destructor))
 trace_end (void) {
 	FILE* test = fopen("out.txt", "w");
+	FILE* temp = fopen("temp.txt", "w");
 	if(test != NULL) {
 		struct data* stack = start;
 		while(stack != NULL) {
 			if(!stack->state) {
 				fprintf(test, "e %p %p %lu %d\n", stack->func, stack->caller, stack->sec, stack->usec );
+				fprintf(temp, "e %p\n", stack->func);
 			} else {
 				fprintf(test, "x %p %p %lu %d\n", stack->func, stack->caller, stack->sec, stack->usec );
+				fprintf(temp, "x %p\n", stack->func);
 			}
 			struct data* prev = stack;
 			stack = stack->next;
@@ -79,11 +82,6 @@ __cyg_profile_func_exit (void *func, void *caller) {
 	out->state = 1;
 	out->next = NULL;
 
-	if(start == NULL) {
-		start = out;
-		last = out;
-	} else {
-		last->next = out;
-		last = out;
-	}
+	last->next = out;
+	last = out;
 }
