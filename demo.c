@@ -11,8 +11,8 @@ void recursF(int n)
 }
 void testFunc()
 {
-  printf("Yes");
-  sleep(1);
+	printf("Yes");
+	//sleep(1);
 }
 
 int main() {
@@ -21,7 +21,13 @@ int main() {
 		j += i;
 		sleep(1);
 	}
-	testFunc(1);
+
+	testFunc(1);	
+
+	for(i = 0; i < 1000; i++) {
+		testFunc();
+	}
+
 	recursF(2);
 	recursF(10000);
 }

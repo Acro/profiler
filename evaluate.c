@@ -1,15 +1,3 @@
-/*
- 
-============================================================================
- Name        : evaluate.c
- Author      :
- Version     :
- Copyright   :
- Description : Output analyzer
- 
-============================================================================
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -22,6 +10,13 @@ struct data_stack {
 		double totalSec;
 		int recursion;
 		struct data_stack* next;
+};
+
+struct depth {
+	char name[256];
+	int count;
+	struct depth* parent;
+	struct depth** child;
 };
 
 struct data_stack* functionEntered(struct data_stack *stack, struct data_stack *new) {
@@ -92,6 +87,8 @@ void printStack(struct data_stack *stack){
 	char functionName[250];
 	struct data_stack *toDel;
 
+	struct depth* root = NULL;
+	
 	while(stack != NULL) {
 		char cmd[250];
 		strcpy(cmd, "addr2line -f -e ");
@@ -105,6 +102,17 @@ void printStack(struct data_stack *stack){
 		pclose(fp);
 
 		printf("Function %s %fs\n", functionName, stack->totalSec);
+
+		/*
+		struct depth* tree = malloc(sizeof(struct depth));
+		if(root == NULL) {
+			root = tree;
+		}
+		tree->parent = NULL;
+		tree->count = 0;
+		tree->child = NULL;
+		*/
+
 		toDel = stack;
 		stack = stack->next;
 		free(toDel); // deleting the records on stack while printing them
@@ -133,6 +141,16 @@ struct data_stack* load(char* file_name) {
 		data = malloc(sizeof(struct data_stack));
 		strcpy(data->name, name);
 		data->beginSec = sec + (double)(usec)/1000000;
+
+		/* // lalala 
+		struct depth* tree = malloc(sizeof(struct depth));
+		if(root == NULL) {
+			root = tree;
+		}
+		tree->parent = NULL;
+		tree->count = 0;
+		tree->child = NULL;
+		// lalala */
 
 		if(type == 'e') {
 			out = functionEntered(out, data);

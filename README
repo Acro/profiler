@@ -6,11 +6,11 @@ How to compile demo.c example:
 
 	Compiling for full-tracing can be done with:
 
-		. run.sh
+		. run.sh source_file
 
 	If you want to trace specific function, use:
 
-		. run.sh functionName
+		. run.sh source_file function_name
 
 To run program that will generate output file (out.txt) use:
 
@@ -32,3 +32,23 @@ Analyzing data:
 
 	This will print runtime of each function onto stdout.
         The first parameter is the output file you want to analyze.
+
+Printing histogram for specific function
+	
+	To print a hostigram into a PNG file you first need to compile ev_graph.c file using:
+		
+		gcc -o graph ev_graph.c
+
+	Usage:
+
+		. data2graph tracing_output text_output image_output
+
+		Example: 
+			
+			. data2graph out.txt temp.txt out.png
+		
+		tracing_output is the output file from ./main
+	
+		text_output is any file where temporary data will be stored 
+
+		image_output has to be png (!) file, will be generated using temporary data
