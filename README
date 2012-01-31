@@ -6,11 +6,11 @@ How to compile demo.c example:
 
 	Compiling for full-tracing can be done with:
 
-		. run.sh source_file
+		. run source_file
 
 	If you want to trace specific function, use:
 
-		. run.sh source_file function_name
+		. run source_file function_name
 
 To run program that will generate output file (out.txt) use:
 
