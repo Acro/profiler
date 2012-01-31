@@ -35,6 +35,8 @@ Analyzing data:
 
 Printing histogram for specific function
 	
+	Requires gnuplot.
+
 	To print a hostigram into a PNG file you first need to compile ev_graph.c file using:
 		
 		gcc -o graph ev_graph.c
